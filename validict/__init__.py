@@ -15,7 +15,7 @@ def validate(template, unvalidated, quiet=False):
             else:
                 raise FailedValidationError("None of {0} in template match topmost level of {1}".format(template, unvalidated))
 
-        if isinstance(template, dict) and isinstance(unvalidated, dict):
+        elif isinstance(template, dict) and isinstance(unvalidated, dict):
             # Two dictionaries. Compare key-by-key!
             try:
                 if all([validate(template[key], unvalidated[key]) for key in template]):
