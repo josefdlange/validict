@@ -6,6 +6,10 @@
 
 ## Usage
 
+Install with (pip)[http://www.pip-installer.org/].
+
+    shell~$ pip install validict
+
 Using `validict` is simple. First, declare your template:
 
     from validict import validate
