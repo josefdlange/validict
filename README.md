@@ -11,7 +11,7 @@ Install with (pip)[http://www.pip-installer.org/].
     shell~$ pip install validict
 
 Using `validict` is simple. First, declare your template:
-
+```python
     from validict import validate
     
     template = {
@@ -59,7 +59,7 @@ Using `validict` is simple. First, declare your template:
     }
 
     validate(template, optional_kid)  # returns True
-    	
+```
     
 
 You might be asking yourself -- or me -- "what the hell is this garbage?" Allow me to briefly explain, and you'll see that the template language is pretty simple.
