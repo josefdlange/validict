@@ -26,53 +26,53 @@ Using ``validict`` is simple. First, declare your template:
 
 .. code:: python
 
-        from validict import validate
-        
-        template = {
-            'name': str,
-            'age': int,
-            'pets': [
-                {
-                    'name': str,
-                    'kind': str
-                }
-            ],
-            'parents': ([{'name': str}], int, None)
-        }
-        
-        kid = {
-            'name': "Bart Simpson",
-            'age': 10,
-            'pets': [
-                {'name': "Santa's Little Helper", 'kind': "Dog"},
-                {'name': "Snowball II", 'kind': "Cat"}
-            ],
-            'parents': [
-                {'name': "Homer Simpson"},
-                {'name': "Marge Simpson"}
-            ]
-        }
-        
-        validate(template, kid)  # returns True
-        
-        bad_kid = {
-            'name': "Nelson Muntz",
-            'age': 12
-        }
-        
-        validate(template, bad_kid)  # raises FailedValidationError
-        validate(template, bad_kid, quiet=True)  # returns False
+    from validict import validate
 
-        optional_kid = {
-            'name': "Milhouse Van Houten",
-            'age': 10,
-            'pets': [
-                {'name': "Lhasa Apso", 'kind': "Dog"}
-            ],
-            'parents': None  # Okay, not really, but for demonstration purposes...
-        }
+    template = {
+        'name': str,
+        'age': int,
+        'pets': [
+            {
+                'name': str,
+                'kind': str
+            }
+        ],
+        'parents': ([{'name': str}], int, None)
+    }
 
-        validate(template, optional_kid)  # returns True
+    kid = {
+        'name': "Bart Simpson",
+        'age': 10,
+        'pets': [
+            {'name': "Santa's Little Helper", 'kind': "Dog"},
+            {'name': "Snowball II", 'kind': "Cat"}
+        ],
+        'parents': [
+            {'name': "Homer Simpson"},
+            {'name': "Marge Simpson"}
+        ]
+    }
+
+    validate(template, kid)  # returns True
+
+    bad_kid = {
+        'name': "Nelson Muntz",
+        'age': 12
+    }
+
+    validate(template, bad_kid)  # raises FailedValidationError
+    validate(template, bad_kid, quiet=True)  # returns False
+
+    optional_kid = {
+        'name': "Milhouse Van Houten",
+        'age': 10,
+        'pets': [
+            {'name': "Lhasa Apso", 'kind': "Dog"}
+        ],
+        'parents': None  # Okay, not really, but for demonstration purposes...
+    }
+
+    validate(template, optional_kid)  # returns True
 
 You might be asking yourself -- or me -- "what the hell is this
 garbage?" Allow me to briefly explain, and you'll see that the template
