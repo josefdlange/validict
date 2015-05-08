@@ -1,0 +1,60 @@
+#`validict`
+
+## Description
+
+`validict` is a Python module for comparing an unknown value to a desired template. It is intended for the top-level type to be a `dict`, but should be flexible enough to deal with `list`s or scalars (though if you're dealing at scalars, might I suggest running away from this and just using Python's `isinstance`). *Important: this library specifically does not treat `tuple`s as template expectations but instead as a set of expectations for a given position in a template.*
+
+## Usage
+
+Using `validict` is simple. First, declare your template:
+
+    from validict import validate
+    
+    template = {
+        'name': str,
+        'age': int,
+        'pets': [
+        	{
+	        	'name': str,
+	            'kind': str
+        	}
+	    ],
+	    'parents': ([{'name': str}], int, None)
+    }
+    
+    kid = {
+    	'name': "Bart Simpson",
+    	'age': 10,
+    	'pets': [
+    		{'name': "Santa's Little Helper", 'kind': "Dog"},
+    		{'name': "Snowball II", 'kind': "Cat"}
+    	],
+    	'parents': [
+    		{'name': "Homer Simpson"},
+    		{'name': "Marge Simpson"}
+    	]
+    }
+    
+    validate(template, kid)  # returns True
+    
+    bad_kid = {
+    	'name': "Nelson Muntz",
+    	'age': 12
+    }
+    
+    validate(template, bad_kid)  # raises FailedValidationError
+    validate(template, bad_kid, quiet=True)  # returns False
+    	
+    
+
+You might be asking yourself -- or me -- "what the hell is this garbage?" Allow me to briefly explain, and you'll see that the template language is pretty simple.
+
+1) We use plain, naked Python `type`s to indicate that the expected value for the given key should be an object of that type. So, if the passed-in dict has a value for `'name'` that isn't a `str`, validation fails.
+
+2) When we are expecting a `list` of elements, we only need to declare in our template one instance of that item, if the `list`'s children are expected to be homogenous. Therefore, `'pets'` is expected to be a `list` of `dict`s, all containing `str` value for keys `'name'` and `'kind'`.
+
+3) We can use a `tuple` to declare that there may be multiple types of values, even including (but not demonstrated) further depth of structure. In the above, the value of `'parents'` can be a `dict` with parents' names, an `int` (perhaps representing the number of parents), or `None` (if you're Batman).
+
+4) Calling `validate` with the template and unvalidated value, positionally, will result either in a return value of `True` or a raise of `FailedValidationError`.
+
+5) Calling `validate` as above with the keyword parameter `quiet=True` will return `False` instead of raising `FailedValidationError` on validation failure.
