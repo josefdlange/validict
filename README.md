@@ -81,4 +81,4 @@ You might be asking yourself -- or me -- "what the hell is this garbage?" Allow 
 
 ## Why do I want to use this?
 
-If you're using a web framework like, say, [Falcon](https://falconframework.org) and you wanted to set up a [before hook](http://falcon.readthedocs.org/en/latest/api/hooks.html) to validate the body of the incoming HTTP request, the function in this method is for you. At least that's why it's for me.
+If you're using a web framework like, say, [Falcon](http://falconframework.org) and you wanted to set up a [before hook](http://falcon.readthedocs.org/en/latest/api/hooks.html) to validate the body of the incoming HTTP request, the function in this method is for you. At least that's why it's for me.
