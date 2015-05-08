@@ -73,3 +73,14 @@ class ValidictTests(unittest.TestCase):
         }
 
         self.assertFalse(validate(template, bad_kid, quiet=True))
+
+
+    def test_optional_values(self):
+        template = {
+                'name': None,
+                'age': int
+                }
+
+        valid = {'age': 2}
+
+        self.assertTrue(validate(template, valid))

@@ -17,14 +17,10 @@ def validate(template, unvalidated, quiet=False):
 
         elif isinstance(template, dict) and isinstance(unvalidated, dict):
             # Two dictionaries. Compare key-by-key!
-            try:
-                if all([validate(template[key], unvalidated[key]) for key in template]):
-                    return True
-                else:
-                    raise FailedValidationError("{0} in template did not match topmost level of {1}".format(template, unvalidated))
-            except KeyError:
-                # Unvalidated didn't have the key. FAIL!
-                raise FailedValidationError("Key {0} was not found in the topmost level of {1}".format(key, unvalidated))
+            if all([validate(template[key], unvalidated.get(key)) for key in template]):
+                return True
+            else:
+                raise FailedValidationError("{0} in template did not match topmost level of {1}".format(template, unvalidated))
 
         elif isinstance(template, list) and isinstance(unvalidated, list):
             # Two lists. The template list should have one element to demonstrate its members'
@@ -42,7 +38,7 @@ def validate(template, unvalidated, quiet=False):
                 raise FailedValidationError("{0} is not of type {1}".format(unvalidated, template))
 
         else:
-            if template == unvalidated:
+            if template == unvalidated or template is None:
                 return True
             else:
                 raise FailedValidationError("{0} is not equal to {1}".format(unvalidated, template))
