@@ -56,6 +56,17 @@ Using ``validict`` is simple. First, declare your template:
 
     validate(template, bad_kid)  # raises FailedValidationError
     validate(template, bad_kid, quiet=True)  # returns False
+
+    optional_kid = {
+        'name': "Milhouse Van Houten",
+        'age': 10,
+        'pets': [
+            {'name': "Lhasa Apso", 'kind': "Dog"}
+        ],
+        'parents': None  # Okay, not really, but for demonstration purposes...
+    }
+
+    validate(template, optional_kid)  # returns True
         
 
 You might be asking yourself -- or me -- "what the hell is this
@@ -86,3 +97,12 @@ language is pretty simple.
 5) Calling ``validate`` as above with the keyword parameter
    ``quiet=True`` will return ``False`` instead of raising
    ``FailedValidationError`` on validation failure.
+
+6) Allowing a ``None`` type as a ``dict`` value or as a member of a
+   ``tuple`` signifies that the value is optional. Using it in a
+   ``tuple`` allows you to declare that the value can either be matching
+   some type or otherwise can be nothing at all.
+
+7) (*Undemonstrated*) Your template can declare scalar values as well.
+   So if all inputs must have some specific K/V pair, you can declare
+   that.
