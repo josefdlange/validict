@@ -78,36 +78,36 @@ You might be asking yourself -- or me -- "what the hell is this
 garbage?" Allow me to briefly explain, and you'll see that the template
 language is pretty simple.
 
-1) We use plain, naked Python ``type``\ s to indicate that the expected
+1. We use plain, naked Python ``type``\ s to indicate that the expected
    value for the given key should be an object of that type. So, if the
    passed-in dict has a value for ``'name'`` that isn't a ``str``,
    validation fails.
 
-2) When we are expecting a ``list`` of elements, we only need to declare
+2. When we are expecting a ``list`` of elements, we only need to declare
    in our template one instance of that item, if the ``list``'s children
    are expected to be homogenous. Therefore, ``'pets'`` is expected to
    be a ``list`` of ``dict``\ s, all containing ``str`` value for keys
    ``'name'`` and ``'kind'``.
 
-3) We can use a ``tuple`` to declare that there may be multiple types of
+3. We can use a ``tuple`` to declare that there may be multiple types of
    values, even including (but not demonstrated) further depth of
    structure. In the above, the value of ``'parents'`` can be a ``dict``
    with parents' names, an ``int`` (perhaps representing the number of
    parents), or ``None`` (if you're Batman).
 
-4) Calling ``validate`` with the template and unvalidated value,
+4. Calling ``validate`` with the template and unvalidated value,
    positionally, will result either in a return value of ``True`` or a
    raise of ``FailedValidationError``.
 
-5) Calling ``validate`` as above with the keyword parameter
+5. Calling ``validate`` as above with the keyword parameter
    ``quiet=True`` will return ``False`` instead of raising
    ``FailedValidationError`` on validation failure.
 
-6) Allowing a ``None`` type as a ``dict`` value or as a member of a
+6. Allowing a ``None`` type as a ``dict`` value or as a member of a
    ``tuple`` signifies that the value is optional. Using it in a
    ``tuple`` allows you to declare that the value can either be matching
    some type or otherwise can be nothing at all.
 
-7) (*Undemonstrated*) Your template can declare scalar values as well.
+7. (*Undemonstrated*) Your template can declare scalar values as well.
    So if all inputs must have some specific K/V pair, you can declare
    that.
