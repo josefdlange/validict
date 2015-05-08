@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
         name = "validict",
-        version = "1.1",
+        version = "1.2",
         author = "Josef Lange",
         author_email = "josef.d.lange@me.com",
         description = "A simple validation module",
