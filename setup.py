@@ -15,7 +15,7 @@ setup(
         url = "https://github.com/josefdlange/validict",
         packages = find_packages(),
         test_suite = 'tests.core_tests', 
-        long_description = read('README'),
+        long_description = read('README.rst'),
         classifiers = [
             'Topic :: Utilities',
             'License :: OSI Approved :: MIT License'
