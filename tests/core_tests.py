@@ -84,3 +84,18 @@ class ValidictTests(unittest.TestCase):
         valid = {'age': 2}
 
         self.assertTrue(validate(template, valid))
+
+
+    def test_fuzzy_string_typing(self):
+        template = {
+                'name': str,
+                'age': int
+                }
+
+        test = {
+            'name': u"Josef",
+            'age': 12
+        }
+
+        self.assertFalse(validate(template, test, quiet=True))
+        self.assertTrue(validate(template, test, fuzzy_string_typing=True))
