@@ -54,3 +54,14 @@ def validate(template, unvalidated, quiet=False, **kwargs):
 
 class FailedValidationError(Exception):
     pass
+
+
+def deep_merge(base, incoming):
+    if not isinstance(base, dict) or not isinstance(incoming, dict):
+        return incoming
+    for key in incoming:
+        if key in base:
+            base[key] = deep_merge(base[key], incoming[key])
+        else:
+            base[key] = incoming[key]
+    return base

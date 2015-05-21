@@ -1,6 +1,6 @@
 import unittest
 
-from validict import validate, FailedValidationError
+from validict import deep_merge, validate, FailedValidationError
 
 class ValidictTests(unittest.TestCase):
     def test_good_dict(self):
@@ -99,3 +99,10 @@ class ValidictTests(unittest.TestCase):
 
         self.assertFalse(validate(template, test, quiet=True))
         self.assertTrue(validate(template, test, fuzzy_string_typing=True))
+
+
+    def test_deep_merge(self):
+        first = {'a': {'b': 1}}
+        second = {'a': {'c': 2}}
+        merged = deep_merge(first, second)
+        self.assertEquals({'a': {'b': 1, 'c': 2}}, merged)
