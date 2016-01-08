@@ -2,6 +2,7 @@ import unittest
 
 from validict import deep_merge, validate, FailedValidationError
 
+
 class ValidictTests(unittest.TestCase):
     def test_good_dict(self):
         template = {
@@ -31,7 +32,6 @@ class ValidictTests(unittest.TestCase):
         
         self.assertTrue(validate(template, kid))
 
-    
     def test_bad_dict_loud(self):
         template = {
             'name': str,
@@ -53,7 +53,6 @@ class ValidictTests(unittest.TestCase):
         with self.assertRaises(FailedValidationError):
             validate(template, bad_kid)  
 
-    
     def test_bad_dict_quiet(self):
         template = {
             'name': str,
@@ -74,7 +73,6 @@ class ValidictTests(unittest.TestCase):
 
         self.assertFalse(validate(template, bad_kid, quiet=True))
 
-
     def test_optional_values(self):
         template = {
                 'name': None,
@@ -84,7 +82,6 @@ class ValidictTests(unittest.TestCase):
         valid = {'age': 2}
 
         self.assertTrue(validate(template, valid))
-
 
     def test_fuzzy_string_typing(self):
         template = {
@@ -99,7 +96,6 @@ class ValidictTests(unittest.TestCase):
 
         self.assertFalse(validate(template, test, quiet=True))
         self.assertTrue(validate(template, test, fuzzy_string_typing=True))
-
 
     def test_deep_merge(self):
         first = {'a': {'b': 1}}
