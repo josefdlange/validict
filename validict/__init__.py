@@ -1,5 +1,18 @@
 from __future__ import unicode_literals
 
+# Normalize python2 and python3 vacaboulary
+# http://www.rfk.id.au/blog/entry/preparing-pyenchant-for-python-3/
+try:
+    is_python2 = str != unicode
+except NameError:
+    # 'unicode' is undefined, must be Python 3
+    is_python2 = False
+    unicode = str
+    basestring = (str, bytes)
+else:
+    # 'unicode' exists, must be Python 2
+    bytes = str
+
 
 def validate(template, unvalidated, quiet=False, **kwargs):
     try:
