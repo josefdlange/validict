@@ -1,3 +1,6 @@
+from __future__ import unicode_literals
+
+
 def validate(template, unvalidated, quiet=False, **kwargs):
     try:
         if isinstance(template, tuple):
