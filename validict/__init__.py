@@ -45,7 +45,7 @@ def validate(template, unvalidated, quiet=False, **kwargs):
                 return True
             else:
                 raise FailedValidationError("{0} is not equal to {1}".format(unvalidated, template))
-    except FailedValidationError, e:
+    except FailedValidationError as e:
         if quiet:
             return False
         else:
