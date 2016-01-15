@@ -1,6 +1,7 @@
 import unittest
 
-from validict import deep_merge, validate, FailedValidationError
+from validict import deep_merge, validate, FailedValidationError, is_python2
+
 
 class ValidictTests(unittest.TestCase):
     def test_good_dict(self):
@@ -31,7 +32,6 @@ class ValidictTests(unittest.TestCase):
         
         self.assertTrue(validate(template, kid))
 
-    
     def test_bad_dict_loud(self):
         template = {
             'name': str,
@@ -53,7 +53,6 @@ class ValidictTests(unittest.TestCase):
         with self.assertRaises(FailedValidationError):
             validate(template, bad_kid)  
 
-    
     def test_bad_dict_quiet(self):
         template = {
             'name': str,
@@ -74,7 +73,6 @@ class ValidictTests(unittest.TestCase):
 
         self.assertFalse(validate(template, bad_kid, quiet=True))
 
-
     def test_optional_values(self):
         template = {
                 'name': None,
@@ -85,21 +83,23 @@ class ValidictTests(unittest.TestCase):
 
         self.assertTrue(validate(template, valid))
 
-
     def test_fuzzy_string_typing(self):
+        # fuzzy_string_typing is useless in python3
+        if not is_python2:
+            return
+
         template = {
-                'name': str,
-                'age': int
-                }
+            'name': str,
+            'age': int
+        }
 
         test = {
-            'name': u"Josef",
+            'name':  u"Josef",
             'age': 12
         }
 
-        self.assertFalse(validate(template, test, quiet=True))
         self.assertTrue(validate(template, test, fuzzy_string_typing=True))
-
+        self.assertFalse(validate(template, test, quiet=True))
 
     def test_deep_merge(self):
         first = {'a': {'b': 1}}
